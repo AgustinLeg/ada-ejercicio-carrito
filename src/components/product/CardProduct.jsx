@@ -10,7 +10,7 @@ import {
 
 function CardProduct({ item, addToCart }) {
   return (
-    <Flex alignItems="center" justifyContent="center" w="100%" maxW="sm" h="xl">
+    <Flex alignItems="center" justifyContent="center" w="100%" maxW="300px" h="xl">
       <Box
         bg={useColorModeValue("white", "gray.800")}
         borderWidth="1px"
@@ -26,7 +26,7 @@ function CardProduct({ item, addToCart }) {
           roundedTop="lg"
           objectFit="cover"
           width="75%"
-          height="sm"
+          height="xs"
           margin="auto"
         />
 
