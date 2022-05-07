@@ -94,10 +94,10 @@ function App() {
     setCartItems([...cartItems, item]);
   };
   return (
-    <div>
+    <>
       <NavBar cartItems={cartItems} />
       <ListProducts products={products} addToCart={addToCart} />
-    </div>
+    </>
   );
 }
 
