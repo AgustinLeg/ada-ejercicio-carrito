@@ -1,16 +1,22 @@
 import {
   Flex,
-  Circle,
   Box,
   Image,
   Badge,
   useColorModeValue,
   Button,
+  Text,
 } from "@chakra-ui/react";
 
 function CardProduct({ item, addToCart }) {
   return (
-    <Flex alignItems="center" justifyContent="center" w="100%" maxW="300px" h="xl">
+    <Flex
+      alignItems="center"
+      justifyContent="center"
+      w="100%"
+      maxW="300px"
+      h="lg"
+    >
       <Box
         bg={useColorModeValue("white", "gray.800")}
         borderWidth="1px"
@@ -40,7 +46,7 @@ function CardProduct({ item, addToCart }) {
           </Box>
           <Flex mt="1" justifyContent="space-between" alignContent="center">
             <Box
-              fontSize="2xl"
+              fontSize="lg"
               fontWeight="semibold"
               as="h4"
               lineHeight="tight"
@@ -51,10 +57,10 @@ function CardProduct({ item, addToCart }) {
           </Flex>
 
           <Flex justifyContent="space-between" alignContent="center">
-            <Box fontSize="2xl" color={useColorModeValue("gray.800", "white")}>
-              <Box as="span" color={"gray.600"} fontSize="lg">
+            <Box fontSize="xl" color={useColorModeValue("gray.800", "white")}>
+              <Text as="span" color={"gray.600"} fontSize="lg">
                 $
-              </Box>
+              </Text>
               {item.price}
             </Box>
           </Flex>

@@ -65,7 +65,7 @@ const NavBar = ({ cartItems }) => {
             <DrawerHeader>Carrito</DrawerHeader>
 
             <DrawerBody>
-              <VStack spacing={5} maxH="75vh" overflow="auto">
+              <VStack spacing={5} maxH="75vh" overflow="auto" align="flex-start">
                 {cartItems.map((item, index) => (
                   <Flex key={`item-carrito-${item.id}-${index}`} gap={2}>
                     <Image
