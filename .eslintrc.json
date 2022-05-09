@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "standard"
+        "standard",
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -18,7 +19,7 @@
         "react"
     ],
     "rules": {
-        "react/react-in-jsx-scope": false,
-        "react/prop-types": false
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off"
     }
 }

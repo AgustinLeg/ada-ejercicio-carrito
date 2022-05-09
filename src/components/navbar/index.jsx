@@ -17,9 +17,27 @@ import {
   Text,
   Image,
   VStack,
+  useColorMode,
 } from "@chakra-ui/react";
 
+import { BsMoonStarsFill, BsSun } from "react-icons/bs";
+
 const Links = ["Dashboard", "Projects", "Team"];
+
+const ButtonToggleColor = (props) => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  return (
+    <Button
+      aria-label="Toggle Color Mode"
+      onClick={toggleColorMode}
+      _focus={{ boxShadow: "none" }}
+      w="fit-content"
+      {...props}
+    >
+      {colorMode === "light" ? <BsMoonStarsFill /> : <BsSun />}
+    </Button>
+  );
+};
 
 const NavLink = ({ children }) => (
   <Link
@@ -55,9 +73,12 @@ const NavBar = ({ cartItems }) => {
         </HStack>
 
         {/* Carrito */}
-        <Button colorScheme="teal" onClick={onOpen}>
-          Carrito {`(${cartItems.length})`}
-        </Button>
+        <div>
+          <ButtonToggleColor mr={2}></ButtonToggleColor>
+          <Button colorScheme="teal" onClick={onOpen}>
+            Carrito {`(${cartItems.length})`}
+          </Button>
+        </div>
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent>
@@ -65,7 +86,12 @@ const NavBar = ({ cartItems }) => {
             <DrawerHeader>Carrito</DrawerHeader>
 
             <DrawerBody>
-              <VStack spacing={5} maxH="75vh" overflow="auto" align="flex-start">
+              <VStack
+                spacing={5}
+                maxH="75vh"
+                overflow="auto"
+                align="flex-start"
+              >
                 {cartItems.map((item, index) => (
                   <Flex key={`item-carrito-${item.id}-${index}`} gap={2}>
                     <Image

@@ -7,8 +7,10 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
+import HeartButton from "./HeartButton";
 
-function CardProduct({ item, addToCart }) {
+function CardProduct({ item, addToCart, toggleFavProduct }) {
+  const toggle = () => toggleFavProduct(item);
   return (
     <Box
       bg={useColorModeValue("white", "gray.800")}
@@ -63,14 +65,12 @@ function CardProduct({ item, addToCart }) {
           </Box>
         </Flex>
       </Box>
-      <Button
-        w="full"
-        colorScheme="blue"
-        mt={2}
-        onClick={() => addToCart(item)}
-      >
-        Agregar al carrito
-      </Button>
+      <Flex mt={2} justifyContent="space-between">
+        <Button w="75%" colorScheme="blue" onClick={() => addToCart(item)}>
+          Agregar al carrito
+        </Button>
+        <HeartButton isSelected={item.fav} toggle={toggle}></HeartButton>
+      </Flex>
     </Box>
   );
 }
