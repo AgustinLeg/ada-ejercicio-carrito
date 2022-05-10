@@ -63,7 +63,7 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-const NavBar = ({ cart, handleDelete }) => {
+const NavBar = ({ cart, handleDelete, handleClear }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { total, items } = cart;
@@ -158,11 +158,30 @@ const NavBar = ({ cart, handleDelete }) => {
                 </VStack>
               </DrawerBody>
 
-              <DrawerFooter>
-                <Heading textAlign="start" w="full" size="md">
-                  Total:
-                </Heading>
-                <Heading size="lg">${total.toFixed(2)}</Heading>
+              <DrawerFooter flexDirection="column">
+                <Button
+                  onClick={handleClear}
+                  w="full"
+                  variant="outline"
+                  colorScheme="red"
+                  mb={5}
+                  rightIcon={<BsFillTrashFill />}
+                >
+                  Vaciar carrito
+                </Button>
+                <Flex justify="space-between" w="full" align="center">
+                  <Text
+                    textAlign="start"
+                    w="full"
+                    fontSize="2xl"
+                    fontWeight="bold"
+                  >
+                    Total:
+                  </Text>
+                  <Text fontSize="3xl" fontWeight="bold">
+                    ${total.toFixed(2)}
+                  </Text>
+                </Flex>
               </DrawerFooter>
             </>
           ) : (

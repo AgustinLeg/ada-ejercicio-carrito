@@ -51,9 +51,27 @@ function App() {
     });
   };
 
+  const handleClear = () => {
+    setCart({
+      items: [],
+      total: 0,
+    });
+    toast({
+      title: "Carrito vacío",
+      description: "Se ha vaciado el carrito",
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Box pt={16}>
-      <NavBar cart={cart} handleDelete={handleDelete} />
+      <NavBar
+        cart={cart}
+        handleDelete={handleDelete}
+        handleClear={handleClear}
+      />
       <ListProducts addToCart={addToCart} />
     </Box>
   );
