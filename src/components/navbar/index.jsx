@@ -20,7 +20,9 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 
-import { BsMoonStarsFill, BsSun } from "react-icons/bs";
+import { BsMoonStarsFill, BsSun, BsCartFill } from "react-icons/bs";
+
+import Logo from "../../assets/iso_blanco.svg";
 
 const Links = ["Dashboard", "Projects", "Team"];
 
@@ -64,7 +66,12 @@ const NavBar = ({ cartItems }) => {
       {/* NavBar */}
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <HStack spacing={8} alignItems={"center"}>
-          <Box>Logo</Box>
+          <Flex gap={2}>
+            <Image src={Logo} alt="logo ada" w="20px" />
+            <Heading as="h1" fontSize="lg">
+              AdaShop
+            </Heading>
+          </Flex>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
@@ -75,8 +82,13 @@ const NavBar = ({ cartItems }) => {
         {/* Carrito */}
         <div>
           <ButtonToggleColor mr={2}></ButtonToggleColor>
-          <Button colorScheme="teal" onClick={onOpen}>
-            Carrito {`(${cartItems.length})`}
+          <Button
+            colorScheme="black"
+            variant="ghost"
+            onClick={onOpen}
+            leftIcon={<BsCartFill size="20px" />}
+          >
+            {`(${cartItems.length})`}
           </Button>
         </div>
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
