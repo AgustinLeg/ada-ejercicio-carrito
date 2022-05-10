@@ -18,13 +18,20 @@ import {
   Image,
   VStack,
   useColorMode,
+  IconButton,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
-import { BsMoonStarsFill, BsSun, BsCartFill } from "react-icons/bs";
+import {
+  BsMoonStarsFill,
+  BsSun,
+  BsCartFill,
+  BsFillTrashFill,
+} from "react-icons/bs";
 
 import Logo from "../../assets/iso_blanco.svg";
 
-const Links = ["Dashboard", "Projects", "Team"];
+const Links = ["Inicio", "Productos", "Contacto"];
 
 const ButtonToggleColor = (props) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -56,83 +63,116 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-const NavBar = ({ cartItems }) => {
+const NavBar = ({ cart, handleDelete }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const total = cartItems.reduce((acc, curr) => acc + curr.price, 0);
+  const { total, items } = cart;
 
   return (
-    <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
-      {/* NavBar */}
-      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-        <HStack spacing={8} alignItems={"center"}>
-          <Flex gap={2}>
-            <Image src={Logo} alt="logo ada" w="20px" />
-            <Heading as="h1" fontSize="lg">
-              AdaShop
-            </Heading>
-          </Flex>
-          <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
-          </HStack>
+    <>
+      <SimpleGrid
+        templateColumns="100px 1fr auto"
+        bg={useColorModeValue("gray.100", "gray.900")}
+        px={4}
+        alignItems="center"
+        position="fixed"
+        top="0"
+        left="0"
+        w="full"
+        zIndex={2}
+        h={14}
+        boxShadow="md"
+      >
+        {/* NavBar */}
+        <Flex gap={2} align="flex-end">
+          <Image src={Logo} alt="logo ada" w="20px" />
+          <Heading as="h1" fontSize="lg">
+            AdaShop
+          </Heading>
+        </Flex>
+        <HStack
+          as={"nav"}
+          spacing={4}
+          display={{ base: "none", md: "flex" }}
+          justify="center"
+        >
+          {Links.map((link) => (
+            <NavLink key={link}>{link}</NavLink>
+          ))}
         </HStack>
-
-        {/* Carrito */}
-        <div>
-          <ButtonToggleColor mr={2}></ButtonToggleColor>
+        <Flex justifyContent="flex-end" gap={4}>
+          <ButtonToggleColor size="20px" />
           <Button
             colorScheme="black"
             variant="ghost"
             onClick={onOpen}
             leftIcon={<BsCartFill size="20px" />}
           >
-            {`(${cartItems.length})`}
+            {`(${items.length})`}
           </Button>
-        </div>
-        <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-          <DrawerOverlay />
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Carrito</DrawerHeader>
+        </Flex>
+      </SimpleGrid>
 
+      {/* Menu carrito */}
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Carrito</DrawerHeader>
+          {items.length > 0 ? (
+            <>
+              <DrawerBody>
+                <VStack
+                  spacing={10}
+                  maxH="75vh"
+                  overflow="auto"
+                  align="flex-start"
+                >
+                  {items.map((item, index) => (
+                    <Flex key={`item-carrito-${item.id}-${index}`} gap={2}>
+                      <Image
+                        src={item.image}
+                        alt={`image of product ${item.title}`}
+                        w="75px"
+                        objectFit="cover"
+                      />
+                      <Box>
+                        <Heading as="h3" size="sm">
+                          {item.title}
+                        </Heading>
+                        <Text fontWeight="bold">${item.price}</Text>
+                        <Text>
+                          {item.quantity}{" "}
+                          {item.quantity === 1 ? "unidad" : "unidades"}
+                        </Text>
+                      </Box>
+                      <IconButton
+                        variant="ghost"
+                        colorScheme="red"
+                        icon={<BsFillTrashFill />}
+                        size="sm"
+                        onClick={() => handleDelete(item.id)}
+                      />
+                    </Flex>
+                  ))}
+                </VStack>
+              </DrawerBody>
+
+              <DrawerFooter>
+                <Heading textAlign="start" w="full" size="md">
+                  Total:
+                </Heading>
+                <Heading size="lg">${total.toFixed(2)}</Heading>
+              </DrawerFooter>
+            </>
+          ) : (
             <DrawerBody>
-              <VStack
-                spacing={5}
-                maxH="75vh"
-                overflow="auto"
-                align="flex-start"
-              >
-                {cartItems.map((item, index) => (
-                  <Flex key={`item-carrito-${item.id}-${index}`} gap={2}>
-                    <Image
-                      src={item.image}
-                      alt={`image of product ${item.title}`}
-                      w="75px"
-                      objectFit="cover"
-                    />
-                    <Box>
-                      <Heading as="h3" size="sm">
-                        {item.title}
-                      </Heading>
-                      <Text>${item.price}</Text>
-                    </Box>
-                  </Flex>
-                ))}
-              </VStack>
+              <Text>No hay productos en el carrito ☹️ </Text>
             </DrawerBody>
-
-            <DrawerFooter>
-              <Heading textAlign="start" w="full">
-                Total:
-              </Heading>
-              <Heading>${total.toFixed(2)}</Heading>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      </Flex>
-    </Box>
+          )}
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 
