@@ -27,10 +27,6 @@ const ListProducts = ({ addToCart }) => {
   const lastPage = Math.ceil(productsFilter.length / ITEM_FOR_PAGE);
   const offset = ITEM_FOR_PAGE * (page - 1);
 
-  console.log(
-    { page, lastPage, offset },
-    productsFilter.slice(offset, ITEM_FOR_PAGE * page)
-  );
   useEffect(() => {
     setProductsFilter(
       products.filter(
