@@ -20,30 +20,31 @@ import {
   useColorMode,
   IconButton,
   SimpleGrid,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 import {
   BsMoonStarsFill,
   BsSun,
   BsCartFill,
   BsFillTrashFill,
-} from "react-icons/bs";
+} from 'react-icons/bs';
 
-import Logo from "../../assets/iso_blanco.svg";
+import Logo from '../../assets/iso_blanco.svg';
 
-const Links = ["Inicio", "Productos", "Contacto"];
+const Links = ['Inicio', 'Productos', 'Contacto'];
 
 const ButtonToggleColor = (props) => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Button
+      px={5}
       aria-label="Toggle Color Mode"
       onClick={toggleColorMode}
-      _focus={{ boxShadow: "none" }}
+      _focus={{ boxShadow: 'none' }}
       w="fit-content"
       {...props}
     >
-      {colorMode === "light" ? <BsMoonStarsFill /> : <BsSun />}
+      {colorMode === 'light' ? <BsMoonStarsFill /> : <BsSun />}
     </Button>
   );
 };
@@ -52,12 +53,12 @@ const NavLink = ({ children }) => (
   <Link
     px={2}
     py={1}
-    rounded={"md"}
+    rounded={'md'}
     _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
+      textDecoration: 'none',
+      bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={"#"}
+    href={'#'}
   >
     {children}
   </Link>
@@ -72,7 +73,7 @@ const NavBar = ({ cart, handleDelete, handleClear }) => {
     <>
       <SimpleGrid
         templateColumns="100px 1fr auto"
-        bg={useColorModeValue("gray.100", "gray.900")}
+        bg={useColorModeValue('gray.100', 'gray.900')}
         px={4}
         alignItems="center"
         position="fixed"
@@ -91,9 +92,9 @@ const NavBar = ({ cart, handleDelete, handleClear }) => {
           </Heading>
         </Flex>
         <HStack
-          as={"nav"}
+          as={'nav'}
           spacing={4}
-          display={{ base: "none", md: "flex" }}
+          display={{ base: 'none', md: 'flex' }}
           justify="center"
         >
           {Links.map((link) => (
@@ -142,8 +143,8 @@ const NavBar = ({ cart, handleDelete, handleClear }) => {
                         </Heading>
                         <Text fontWeight="bold">${item.price}</Text>
                         <Text>
-                          {item.quantity}{" "}
-                          {item.quantity === 1 ? "unidad" : "unidades"}
+                          {item.quantity}{' '}
+                          {item.quantity === 1 ? 'unidad' : 'unidades'}
                         </Text>
                       </Box>
                       <IconButton
